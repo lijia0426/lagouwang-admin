@@ -19,6 +19,7 @@ class UserController {
         })
     }
     async signup(req, res, next) {
+        res.set('Content-Type', 'application/json; charset=utf-8');
         let user=await userModel.findOne(req.body.username)
         if(user){
             res.render('fail', {
