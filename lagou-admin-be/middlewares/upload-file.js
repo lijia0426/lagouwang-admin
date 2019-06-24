@@ -4,8 +4,6 @@ const randomString = require('node-random-string')
 class FileUpload {
     _fileFilter(req, file, cb) {
         let mimeRegexp = new RegExp('(image\/png|image\/jpg|image\/jpeg|image\/gif)', 'gi')
-        // console.log(mimeRegexp.test(file.mimetype));
-        // console.log(mimeRegexp.test(file.mimetype));
         if (mimeRegexp.test(file.mimetype)) {
             cb(null, true)
         } else {
@@ -14,6 +12,7 @@ class FileUpload {
         }
     }
     uploadFile(req, res, next) {
+        res.set('Content-Type', 'application/json; charset=utf-8')
         let files = ''
         let storage = multer.diskStorage({
             destination: (req, file, cb) => {
@@ -39,15 +38,20 @@ class FileUpload {
             fileFilter: fileupload._fileFilter
         }).single('companyLogo')
         upload(req, res, function (err) {
-            if (err) {
-
-                res.render('fail', {
-                    data: JSON.stringify(err.message)
-                })
-            } else {
-                req.filename = files;
+            if (req.body.company === '') {
                 next()
+            } else {
+                if (err) {
+
+                    res.render('fail', {
+                        data: JSON.stringify(err.message)
+                    })
+                } else {
+                    req.filename = files;
+                    next()
+                }
             }
+
         })
 
     }

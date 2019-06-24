@@ -10,11 +10,12 @@ module.exports={
     },
     //配置webserver,不需要引入webpack-server，但是需要安装webpack-server启动
     devServer:{
+        host:'10.9.65.155',
         contentBase:path.join(__dirname,'./dev'),
         compress:true,
         port:8080,
         proxy:{
-            '/api':'http://localhost:3000'
+            '/api':'http://10.9.65.155:3000'
         }
     },
     //配置loader
