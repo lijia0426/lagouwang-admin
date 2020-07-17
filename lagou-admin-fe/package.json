@@ -25,7 +25,7 @@
     "build:dev": "webpack"
   },
   "dependencies": {
-    "lodash": "^4.17.11",
+    "lodash": "^4.17.19",
     "randomstring": "^1.1.5"
   }
 }
